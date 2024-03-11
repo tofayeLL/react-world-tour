@@ -6,6 +6,7 @@ import './Countries.css'
 const Countries = () => {
     const [countries, setCountries] = useState([]);
     const [visitedCountries, setVisitedCountries] = useState([]);
+    const [visitedFlags, setVisitedFlags] = useState([]);
 
 
     useEffect(() => {
@@ -16,8 +17,14 @@ const Countries = () => {
 
 
     const handleMarkAsRead = (country) => {
-      const newVisitedCountries = [...visitedCountries, country]
-      setVisitedCountries(newVisitedCountries);
+        const newVisitedCountries = [...visitedCountries, country]
+        setVisitedCountries(newVisitedCountries);
+    }
+
+    const handleVisitedFlags = (flag) => {
+        const newVisitedFlags = [...visitedFlags, flag];
+        setVisitedFlags(newVisitedFlags);
+
     }
 
 
@@ -25,6 +32,7 @@ const Countries = () => {
     return (
         <div>
             <h3>Countries: {countries.length}</h3>
+            {/* visited countries */}
             <div>
                 <h4>Visited Countries: {visitedCountries.length}</h4>
                 <ul>
@@ -34,14 +42,24 @@ const Countries = () => {
 
                 </ul>
             </div>
+
+            {/* display flag */}
+            <div className="flag-container img">
+                {
+                    visitedFlags.map((flag, index) => <img key={index} src={flag} ></img>)
+                }
+            </div>
+
+            {/* display countries */}
             <div className="countries-container">
                 {
-                    countries.map(country => <Country 
+                    countries.map(country => <Country
                         country={country}
                         key={country.cca3}
                         handleMarkAsRead={handleMarkAsRead}
+                        handleVisitedFlags={handleVisitedFlags}
 
-                        ></Country>)
+                    ></Country>)
                 }
             </div>
         </div>
